@@ -118,14 +118,16 @@ class GroupAction(generic.Action):
                                         # handle this "properly".
                                         if pw:
                                                 pw.unlock()
-                                        txt = _("Group named '%s' cannot be installed. "
-                                            "Requested GID number '%s' is already "
-                                            "occupied by %s. "
+                                        txt = _("Group named '{group}' cannot be installed. "
+                                            "Requested GID number '{gid}' is already "
+                                            "occupied by {groups}. "
                                             "Please evacuate that group to another ID "
                                             "first (including FS object ownership), or "
                                             "rename (or alias) the account to the new "
-                                            "packaged name if applicable."
-                                            % (self.attrs["groupname"], str(self.attrs["gid"]), existing_names) )
+                                            "packaged name if applicable.").format(
+                                                group=self.attrs["groupname"],
+                                                gid=str(self.attrs["gid"]),
+                                                groups=existing_names)
                                         if "PKG_ACCOUNTS_COLLISION" in os.environ and os.environ["PKG_ACCOUNTS_COLLISION"] == "permit":
                                                 sys.stderr.write("WARNING (relaxed because PKG_ACCOUNTS_COLLISION==permit): " + txt + "\n")
                                         else:
