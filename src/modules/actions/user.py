@@ -177,14 +177,16 @@ class UserAction(generic.Action):
                                                 # handle this "properly".
                                                 if pw:
                                                         pw.unlock()
-                                                txt = _("User named '%s' cannot be installed. "
-                                                    "Requested UID number '%s' is already "
-                                                    "occupied by %s. "
+                                                txt = _("User named '{user}' cannot be installed. "
+                                                    "Requested UID number '{uid}' is already "
+                                                    "occupied by {users}. "
                                                     "Please evacuate that user to another ID "
                                                     "first (including FS object ownership), or "
                                                     "rename (or alias) the account to the new "
-                                                    "packaged name if applicable."
-                                                    % (self.attrs["username"], str(self.attrs["uid"]), existing_names) )
+                                                    "packaged name if applicable.").format(
+                                                        user=self.attrs["username"],
+                                                        uid=str(self.attrs["uid"]),
+                                                        users=existing_names)
                                                 if "PKG_ACCOUNTS_COLLISION" in os.environ and os.environ["PKG_ACCOUNTS_COLLISION"] == "permit":
                                                         sys.stderr.write("WARNING (relaxed because PKG_ACCOUNTS_COLLISION==permit): " + txt + "\n")
                                                 else:
