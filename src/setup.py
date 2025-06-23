@@ -61,7 +61,6 @@ import distutils.dir_util as dir_util
 import distutils.file_util as file_util
 import distutils.util as util
 import distutils.ccompiler
-from distutils.unixccompiler import UnixCCompiler
 
 osname = platform.uname()[0].lower()
 ostype = arch = 'unknown'
@@ -1044,61 +1043,11 @@ def syntax_check(filename):
         finally:
                 os.remove(tmp_file)
 
-# On Solaris, ld inserts the full argument to the -o option into the symbol
-# table.  This means that the resulting object will be different depending on
-# the path at which the workspace lives, and not just on the interesting content
-# of the object.
-#
-# In order to work around that bug (7076871), we create a new compiler class
-# that looks at the argument indicating the output file, chdirs to its
-# directory, and runs the real link with the output file set to just the base
-# name of the file.
-#
-# Unfortunately, distutils isn't too customizable in this regard, so we have to
-# twiddle with a couple of the names in the distutils.ccompiler namespace: we
-# have to add a new entry to the compiler_class dict, and we have to override
-# the new_compiler() function to point to our own.  Luckily, our copy of
-# new_compiler() gets to be very simple, since we always know what we want to
-# return.
-class MyUnixCCompiler(UnixCCompiler):
-
-        def link(self, *args, **kwargs):
-
-                output_filename = args[2]
-                output_dir = kwargs.get('output_dir')
-                cwd = os.getcwd()
-
-                assert(not output_dir)
-                output_dir = os.path.join(cwd, os.path.dirname(output_filename))
-                output_filename = os.path.basename(output_filename)
-                nargs = args[:2] + (output_filename,) + args[3:]
-                if not os.path.exists(output_dir):
-                        os.mkdir(output_dir, 0o755)
-                os.chdir(output_dir)
-
-                UnixCCompiler.link(self, *nargs, **kwargs)
-
-                os.chdir(cwd)
-
-distutils.ccompiler.compiler_class['myunix'] = (
-    'unixccompiler', 'MyUnixCCompiler',
-    'standard Unix-style compiler with a link stage modified for Solaris'
-)
-
-def my_new_compiler(plat=None, compiler=None, verbose=0, dry_run=0, force=0):
-        return MyUnixCCompiler(None, dry_run, force)
-
-if osname == 'sunos':
-        distutils.ccompiler.new_compiler = my_new_compiler
-
 class build_ext_func(_build_ext):
 
         def initialize_options(self):
                 _build_ext.initialize_options(self)
                 self.build64 = False
-
-                if osname == 'sunos':
-                        self.compiler = 'myunix'
 
         def build_extension(self, ext):
                 # Build 32-bit
