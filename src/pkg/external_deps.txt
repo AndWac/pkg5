@@ -4,7 +4,6 @@
     pkg:/developer/build/make
     pkg:/developer/build/onbld
     pkg:/developer/gnome/gettext
-    pkg:/developer/python/pylint
     pkg:/developer/versioning/mercurial
     pkg:/library/python/cffi
     pkg:/library/python/cffi-39
@@ -21,6 +20,7 @@
     pkg:/library/python/prettytable-39
     pkg:/library/python/pybonjour-39
     pkg:/library/python/pycurl-39
+    pkg:/library/python/pylint
     pkg:/library/python/pyopenssl-39
     pkg:/library/python/pyyaml-39
     pkg:/library/python/python-rapidjson-39

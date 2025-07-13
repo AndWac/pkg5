@@ -30,7 +30,6 @@ set name=info.classification \
 depend type=require fmri=pkg:/developer/build/make
 depend type=require fmri=pkg:/developer/build/onbld
 depend type=require fmri=pkg:/developer/build/pkg-config
-depend type=require fmri=pkg:/developer/python/pylint
 depend type=require fmri=pkg:/developer/versioning/mercurial
 depend type=require fmri=pkg:/gnome/gnome-common
 depend type=require fmri=pkg:/library/python/cffi-39
@@ -46,6 +45,7 @@ depend type=require fmri=pkg:/library/python/prettytable-39
 depend type=require fmri=pkg:/library/python/pybonjour-39
 depend type=require fmri=pkg:/library/python/pycodestyle-39
 depend type=require fmri=pkg:/library/python/pycurl-39
+depend type=require fmri=pkg:/library/python/pylint
 depend type=require fmri=pkg:/library/python/pyopenssl-39
 depend type=require fmri=pkg:/library/python/python-rapidjson-39
 depend type=require fmri=pkg:/library/python/six-39
