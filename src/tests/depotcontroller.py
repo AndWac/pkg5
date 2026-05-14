@@ -19,8 +19,11 @@
 #
 # CDDL HEADER END
 #
-# Copyright (c) 2008, 2016, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2008, 2026, Oracle and/or its affiliates.
 #
+
+# Note this file used to be delivered but has always been part of
+# the test infrastructure.
 
 from __future__ import print_function
 import os

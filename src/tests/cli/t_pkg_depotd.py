@@ -44,7 +44,7 @@ from six.moves.urllib.parse import quote, urljoin
 from six.moves.urllib.request import urlopen
 
 import pkg.client.publisher as publisher
-import pkg.depotcontroller as dc
+import depotcontroller as dc
 import pkg.fmri as fmri
 import pkg.manifest as man
 import pkg.misc as misc

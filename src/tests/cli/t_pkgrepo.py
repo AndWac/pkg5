@@ -35,7 +35,7 @@ import os
 import pkg
 import pkg.catalog
 import pkg.manifest
-import pkg.depotcontroller as dc
+import depotcontroller as dc
 import pkg.fmri as fmri
 import pkg.json as json
 import pkg.misc as misc
