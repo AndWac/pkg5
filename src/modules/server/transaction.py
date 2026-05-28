@@ -21,7 +21,7 @@
 #
 
 #
-# Copyright (c) 2007, 2016, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2007, 2026, Oracle and/or its affiliates. All rights reserved.
 #
 
 from __future__ import print_function
@@ -607,6 +607,10 @@ class Transaction(object):
                 # If basename provided, just store the file as-is with the
                 # basename.
                 if basename:
+                        if "/" in basename or "." in basename:
+                                raise TransactionOperationError(_(
+                                    "The specified basename, '{0}', is "
+                                    "invalid.").format(basename))
                         fileneeded = True
                         try:
                                 dst_path = self.rstore.file(basename)
