@@ -23,7 +23,6 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #define vec_h
 
 #include <stdlib.h>
-#include <string.h>
 
 // vector of 32-bit intergers (added for 64-bit portability)
 struct veci_t {
@@ -51,12 +50,6 @@ static inline void   veci_push   (veci* v, int e)
         v->cap = newsize; }
     v->ptr[v->size++] = e;
 }
-static inline void veci_dup(veci *new, veci *old)
-{
-  *new = *old;
-  new->ptr = (int*)memcpy(malloc(sizeof(int)*new->cap), old->ptr, sizeof(int)*new->cap);
-}
-
 // vector of 32- or 64-bit pointers
 struct vecp_t {
     int    size;
@@ -83,11 +76,4 @@ static inline void   vecp_push   (vecp* v, void* e)
         v->cap = newsize; }
     v->ptr[v->size++] = e;
 }
-static inline void vecp_dup(vecp *new, vecp *old)
-{
-  *new = *old;
-  new->ptr = (void**)memcpy(malloc(sizeof(void*)*new->cap), old->ptr, sizeof(int)*new->cap);
-}
-
-
 #endif
