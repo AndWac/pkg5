@@ -19,7 +19,7 @@
 #
 # CDDL HEADER END
 #
-# Copyright (c) 2008, 2017, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2008, 2026, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2020 OmniOS Community Edition (OmniOSce) Association.
 
 from __future__ import print_function
@@ -1400,6 +1400,8 @@ class _RepoStore(object):
                         raise RepositoryUnsupportedOperationError()
 
                 assert name
+                if "/" in name:
+                        raise RepositoryFileNotFoundError(name)
                 return os.path.normpath(os.path.join(self.catalog_root, name))
 
         def reset_search(self):
@@ -1476,7 +1478,7 @@ class _RepoStore(object):
                 if not self.file_root:
                         raise RepositoryUnsupportedOperationError()
 
-                if fhash is None:
+                if fhash is None or "/" in fhash:
                         raise RepositoryFileNotFoundError(fhash)
 
                 fp = self.cache_store.lookup(fhash)
